@@ -1,0 +1,9 @@
+{% if app.user %}
+    <nav>
+        <ul>
+            <li><a href="{{ path('accueil') }}" title="Accueil">Accueil</a></li>
+            <li><a href="{{ path('mon_profil') }}" title="Mon profil">Mon profil</a></li>
+            <li><a href="{{ path('app_logout') }}" title="Déconnexion">Se déconnecter</a></li>
+        </ul>
+    </nav>
+{% endif %}

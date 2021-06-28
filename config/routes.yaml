@@ -1,0 +1,8 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+sortie_liste_lieux:
+  path: /get-liste-lieux-ville
+  defaults: {_controller: "App:Sortie:listeLieux"}
+  methods: GET

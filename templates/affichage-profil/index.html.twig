@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Affichage d'un profil{% endblock %}
+
+
+{% block body %}
+    <h1>{{ participant.pseudo }}</h1>
+
+    <div class="row">
+        <div class="col-md-3 left"></div>
+        <div class="col-md-6 left">
+            <div class="row">
+                <div class="col-6">
+                    Prénom :
+                </div>
+                <div class="col-6">
+                    {{ participant.prenom }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Nom :
+                </div>
+                <div class="col-6">
+                    {{ participant.nom }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Téléphone :
+                </div>
+                <div class="col-6">
+                    {{ participant.telephone }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                   Email :
+                </div>
+                <div class="col-6">
+                    {{ participant.mail }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Campus :
+                </div>
+                <div class="col-6">
+                    {{ participant.campus.nom }}
+                </div>
+            </div>
+            <div class="centered">
+                <a class="btn btn-secondary" href="{{ app.request.headers.get('referer') }}">Retour</a>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

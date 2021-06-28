@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Affichage d'une sortie{% endblock %}
+
+{% block body %}
+    <h1>Afficher une sortie</h1>
+
+    {% if sortie.etat.libelle == "Annulée" %}
+        <div class="row">
+            <div class="col-12 alert alert-warning">
+                <strong>Cette sortie a été annulée.</strong><br />
+                Motif de l'annulation : {{ sortie.motifAnnulation }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="offset-md-1 col-md-5 left">
+            <div class="row">
+                <div class="col-6">
+                    Nom de la sortie :
+                </div>
+                <div class="col-6">
+                    {{ sortie.nom }}
+                </div>
+                <div class="col-6">
+                    Date et heure de la sortie :
+                </div>
+                <div class="col-6">
+                    {{ sortie.dateHeureDebut|date("d/m/Y H:i") }}
+                </div>
+                <div class="col-6">
+                    Date limite d'inscription :
+                </div>
+                <div class="col-6">
+                    {{ sortie.dateLimiteInscription|date("d/m/Y") }}
+                </div>
+                <div class="col-6">
+                    Nombre de places :
+                </div>
+                <div class="col-6">
+                    {{ sortie.nbInscriptionsMax }}
+                </div>
+                <div class="col-6">
+                    Durée :
+                </div>
+                <div class="col-6">
+                    {{ sortie.duree }} minutes
+                </div>
+                <div class="col-6">
+                    Description et infos :
+                </div>
+                <div class="col-6">
+                    {{ sortie.infosSortie }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5 left">
+            <div class="row">
+                <div class="col-6">
+                    Campus :
+                </div>
+                <div class="col-6">
+                    {{ sortie.campus.nom }}
+                </div>
+                <div class="col-6">
+                    Lieu :
+                </div>
+                <div class="col-6">
+                    {{ sortie.lieu.nom }}
+                </div>
+                <div class="col-6">
+                    Rue :
+                </div>
+                <div class="col-6">
+                    {{ sortie.lieu.rue }}
+                </div>
+                <div class="col-6">
+                    Code Postal :
+                </div>
+                <div class="col-6">
+                    {{ sortie.lieu.ville.codePostal }}
+                </div>
+                <div class="col-6">
+                    Latitude :
+                </div>
+                <div class="col-6">
+                    {{ sortie.lieu.latitude }}
+                </div>
+                <div class="col-6">
+                    Longitude :
+                </div>
+                <div class="col-6">
+                    {{ sortie.lieu.longitude }}
+                </div>
+            </div>
+        </div>
+
+        <h2>Liste des participants inscrits :</h2>
+        <table>
+            <tr>
+                <th>Pseudo</th>
+                <th>Nom</th>
+            </tr>
+            {% for participant in sortie.participants %}
+                <tr>
+                    <td><a href="{{ path('affichage-profil', {'id': sortie.organisateur.id}) }}">{{ participant.pseudo }}</a></td>
+                    <td>{{ participant.prenom }} {{ participant.nom|upper }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+{% endblock %}

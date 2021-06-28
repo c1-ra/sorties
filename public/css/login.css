@@ -1,0 +1,22 @@
+form {
+    width: 50%;
+    min-width: 400px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 100%;
+    border: 3px solid;
+}
+
+.row {
+    margin: 1rem 1rem;
+    width: 100%;
+}
+
+.center {
+    text-align: center;
+}

@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Mon profil{% endblock %}
+
+{% block body %}
+    <h1>Mon profil</h1>
+
+    <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-4 offset-1">
+            {{ form_start(profilForm) }}
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_label(profilForm.pseudo, 'Pseudo : ') }}
+                </div>
+                <div class="col-6">
+                    {{ form_widget(profilForm.pseudo) }}
+                    {{ form_errors(profilForm.pseudo) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_label(profilForm.prenom, 'Prénom : ') }}
+                </div>
+                <div class="col-6">
+                    {{ form_widget(profilForm.prenom) }}
+                    {{ form_errors(profilForm.prenom) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_label(profilForm.nom, 'Nom : ') }}
+                </div>
+                <div class="col-6">
+                    {{ form_widget(profilForm.nom) }}
+                    {{ form_errors(profilForm.nom) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_label(profilForm.telephone, 'Téléphone : ') }}
+                </div>
+                <div class="col-6">
+                    {{ form_widget(profilForm.telephone) }}
+                    {{ form_errors(profilForm.telephone) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_label(profilForm.mail, 'Email : ') }}
+                </div>
+                <div class="col-6">
+                    {{ form_widget(profilForm.mail) }}
+                    {{ form_errors(profilForm.mail) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_label(profilForm.plainPassword.first, 'Mot de passe : ') }}
+                </div>
+                <div class="col-6">
+                    {{ form_widget(profilForm.plainPassword.first) }}
+                    {{ form_errors(profilForm.plainPassword.first) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_label(profilForm.plainPassword.second, 'Confirmation : ') }}
+                </div>
+                <div class="col-6">
+                    {{ form_widget(profilForm.plainPassword.second) }}
+                    {{ form_errors(profilForm.plainPassword.second) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    {{ form_label(profilForm.campus, 'Campus : ') }}
+                </div>
+                <div class="col-6">
+                    {{ form_widget(profilForm.campus) }}
+                    {{ form_errors(profilForm.campus) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 centered">
+                    <button class="btn btn-primary">Enregistrer</button>
+                </div>
+                <div class="col-6 centered">
+                    <a class="btn btn-secondary" href="{{ path('accueil') }}">Annuler</a>
+                </div>
+            </div>
+
+            {{ form_end(profilForm) }}
+        </div>
+    </div>
+
+
+    </div>
+
+{% endblock %}

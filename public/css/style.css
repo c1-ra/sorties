@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+* {
+    font-family: 'Open Sans', sans-serif;
+    color: #232323;
+}
+
+/***************************************** Balises *****************************************/
+
+/* Menu */
+header {
+    display: block;
+    margin: auto;
+    text-align: center;
+    width: 95%;
+    height: 95px;
+}
+
+header img, nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+header img {
+    float: left;
+    margin: 0.5rem;
+    height: 75px;
+}
+
+nav {
+    float: right;
+    height: 95px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+nav li {
+    margin-right: 1rem;
+}
+
+/* Titres */
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: left;
+}
+
+/* Formulaires */
+form input, form select {
+    margin: 0 0.5rem;
+}
+
+/* Divers */
+div {
+    margin-bottom: 0.5rem;
+}
+
+/* Page accueil */
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 0.5rem;
+}
+
+table {
+    width: 100%;
+}
+
+/******************************************************* Classes **********************************************/
+
+.container {
+    width: 95%;
+    text-align: center;
+}
+
+.row {
+    margin: 1rem 0;
+}
+
+.col-6 {
+    margin: 0.5rem 0;
+}
+
+.centered {
+    text-align: center;
+}
+
+form .row {
+    text-align: left;
+}
+
+/* Infos en haut à droite sur l'accueil */
+.infos-co {
+    font-weight: bold;
+    text-align: right;
+}
+
+.recherche-sorties input {
+    text-align: right;
+    margin: 0.5rem;
+}
+
+.left div[class^='col'] {
+    margin: 0.5rem 0;
+    text-align: left;
+}
+
+.left {
+    text-align: left;
+}
+
+.btn {
+    margin: 1rem 0;
+}
+
+/******************************************** Ids ************************************/
+
+#crea-sortie {
+    margin-top: 2rem;
+    float: left;
+}
+
+#app_sortie_nbInscriptionsMax, #app_sortie_duree {
+    width: 100px;
+}
+
+#annulation {
+    text-align: left;
+}
+
+#annulation div[class^='col'] {
+    margin: 0.5rem 0;
+    text-align: left;
+}
+
+#btns-sortie {
+    text-align: center;
+}
+
+#filtres input {
+    display: block;
+    float: left;
+    margin: 5px 10px 0 0;
+}
+
+#filtres label {
+    display: block;
+}

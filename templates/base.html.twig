@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sorties ENI{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    {% block style %}{% endblock %}
+</head>
+
+<header>
+    <img src="{{ asset('img/icon.png') }}" title="logo" />
+    {% include('nav/nav.html.twig') %}
+</header>
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<body>
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+{% block javascripts %}
+    <script>const baseURL = '{{ app.request.basePath }}';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% endblock %}
+</body>
+</html>

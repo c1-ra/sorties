@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Accueil{% endblock %}
+
+{% block body %}
+    <div class="infos-co">
+        <div>Date du jour : {{ "now"|date("d/m/Y") }}</div>
+        <div>Participant : {{ app.user.prenom }} {{ app.user.nom }}</div>
+    </div>
+
+    <h2>Filtrer les sorties</h2>
+
+    {{ form_start(sortiesFiltreForm) }}
+
+    <div class="row">
+        <div class="col-md-5">
+            <div>{{ form_row(sortiesFiltreForm.campus) }}</div>
+            <div>{{ form_row(sortiesFiltreForm.rechercheNom) }}</div>
+            <div>
+                {{ form_label(sortiesFiltreForm.dateMin) }}
+                {{ form_widget(sortiesFiltreForm.dateMin) }}
+                {{ form_errors(sortiesFiltreForm.dateMin) }}
+                {{ form_label(sortiesFiltreForm.dateMax) }}
+                {{ form_widget(sortiesFiltreForm.dateMax) }}
+                {{ form_errors(sortiesFiltreForm.dateMax) }}
+            </div>
+        </div>
+        <div class="col-md-5" id="filtres">
+            {{ form_widget(sortiesFiltreForm.orga) }}
+            {{ form_label(sortiesFiltreForm.orga) }}
+            {{ form_errors(sortiesFiltreForm.orga) }}
+            {{ form_widget(sortiesFiltreForm.inscrit) }}
+            {{ form_label(sortiesFiltreForm.inscrit) }}
+            {{ form_errors(sortiesFiltreForm.inscrit) }}
+            {{ form_widget(sortiesFiltreForm.nonInscrit) }}
+            {{ form_label(sortiesFiltreForm.nonInscrit) }}
+            {{ form_errors(sortiesFiltreForm.nonInscrit) }}
+            {{ form_widget(sortiesFiltreForm.passees) }}
+            {{ form_label(sortiesFiltreForm.passees) }}
+            {{ form_errors(sortiesFiltreForm.passees) }}
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary">Rechercher</button>
+        </div>
+    </div>
+
+    {{ form_start(sortiesFiltreForm) }}
+
+    <table>
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>Inscrits / places</th>
+            <th>Etat</th>
+            <th>Inscrit</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+        </tr>
+        {% for sortie in listeSorties %}
+            <tr>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.dateHeureDebut|date("d/m/Y H:i") }}</td>
+                <td>{{ sortie.dateLimiteInscription|date("d/m/Y") }}</td>
+                <td>{{ sortie.participants|length }} / {{ sortie.nbInscriptionsMax }}</td>
+                <td>{{ sortie.etat.libelle }}</td>
+                <td>
+                    {% if sortie in app.user.sorties %}
+                        x
+                    {% endif %}
+                </td>
+                <td>
+                    {% if sortie.organisateur != app.user %}
+                        <a href="{{ path('affichage-profil', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a>
+                    {% else %}
+                        {{ sortie.organisateur.pseudo }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if sortie.dateHeureDebut|date('Y-m-d') > "now"|date_modify('-1 month')|date('Y-m-d') %}
+
+                        {% if sortie.organisateur != app.user or sortie.etat.libelle == "Passée" %}
+                            <a href="{{ path('affichage-sortie', {'id': sortie.id}) }}">Afficher</a>
+                        {% elseif sortie.etat.libelle == "Annulée" %}
+                            <a href="{{ path('affichage-sortie', {'id': sortie.id}) }}">Afficher</a> - <strong>Annulée</strong>
+                        {% elseif sortie.organisateur == app.user and sortie.etat.libelle == "Créée" %}
+                            <a href="{{ path('modif-sortie', {'id': sortie.id}) }}">Modifier</a> - <a href="{{ path('publication', {'id': sortie.id}) }}">Publier</a>
+                        {% elseif sortie.organisateur == app.user and (sortie.etat.libelle == "Ouverte" or sortie.etat.libelle == "Clôturée") and sortie.dateHeureDebut|date('Y-m-d') >= "now"|date('Y-m-d') %}
+                            <a href="{{ path('affichage-sortie', {'id': sortie.id}) }}">Afficher</a> - <a href="{{ path('annulation', {'id': sortie.id}) }}">Annuler</a>
+                        {% endif %}
+
+                        {% if sortie.organisateur != app.user and  sortie.etat.libelle != "Passée"%}
+                            {% if sortie in app.user.sorties and (sortie.etat.libelle == "Ouverte" or sortie.etat.libelle == "Clôturée") and sortie.dateHeureDebut|date('Y-m-d') >= "now"|date('Y-m-d') %}
+                                 - <a href="{{ path('desistement', {'id': sortie.id}) }}">Se désister</a>
+                            {% elseif sortie not in app.user.sorties and sortie.etat.libelle == "Ouverte" and sortie.dateLimiteInscription|date('Y-m-d') >= "now"|date('Y-m-d') %}
+                                 - <a href="{{ path('inscription', {'id': sortie.id}) }}">S'inscrire</a>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="left">
+        <a class="btn btn-primary" href="{{ path('crea-sortie') }}">Créer une sortie</a>
+    </div>
+
+{% endblock %}
